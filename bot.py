@@ -1,13 +1,15 @@
-from pyrogram import Client
+from pyrogram import Client, filters
 from config import *
 import help_menu
 
-# import modules
-from modules import fsub, bans, warnings, filters_module, locks, welcome, rules, connections
+# Import modules
+from modules import fsub, bans, warnings, locks, welcome, rules, connections
+from modules import filters as filters_module  # rename import to avoid conflict
 
+# Initialize bot client
 app = Client("mega_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
-# initialize all modules with app
+# Initialize all modules with app
 fsub.init(app)
 bans.init(app)
 warnings.init(app)
@@ -17,9 +19,7 @@ welcome.init(app)
 rules.init(app)
 connections.init(app)
 
-# start command
-from pyrogram import filters
-
+# Start command
 @app.on_message(filters.command("start"))
 async def start(_, m):
     await m.reply(

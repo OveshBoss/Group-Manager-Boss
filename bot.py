@@ -1,22 +1,24 @@
-from pyrogram import Client, filters
+from pyrogram import Client
 from config import *
-# Import modules
-import modules.fsub
-import modules.bans
-import modules.warnings
-import modules.filters
-import modules.locks
-import modules.welcome
-import modules.rules
-import modules.connections
 import help_menu
 
-app = Client(
-    "mega_bot",
-    api_id=API_ID,
-    api_hash=API_HASH,
-    bot_token=BOT_TOKEN
-)
+# import modules
+from modules import fsub, bans, warnings, filters_module, locks, welcome, rules, connections
+
+app = Client("mega_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
+
+# initialize all modules with app
+fsub.init(app)
+bans.init(app)
+warnings.init(app)
+filters_module.init(app)
+locks.init(app)
+welcome.init(app)
+rules.init(app)
+connections.init(app)
+
+# start command
+from pyrogram import filters
 
 @app.on_message(filters.command("start"))
 async def start(_, m):
@@ -25,5 +27,5 @@ async def start(_, m):
         reply_markup=help_menu.start_buttons()
     )
 
-print("bot started successfully")
+print("Bot started successfully")
 app.run()

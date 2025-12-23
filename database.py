@@ -4,7 +4,6 @@ from config import MONGO_URI
 mongo = MongoClient(MONGO_URI)
 db = mongo['mega_bot']
 
-# Collections
 fsub = db['fsub']
 bans = db['bans']
 warnings = db['warnings']
